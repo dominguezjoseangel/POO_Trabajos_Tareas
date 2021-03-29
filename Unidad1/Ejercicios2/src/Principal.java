@@ -1,3 +1,4 @@
+import java.awt.desktop.AboutEvent;
 import java.util.Scanner;
 
 public class Principal {
@@ -7,33 +8,59 @@ public class Principal {
         System.out.println("---- Funciones ----");
 
         // Recoge las cantidades
-        System.out.println("Introduce la cantidad en pesos mexicanos que desee: (Ej. 1,15/1,50/5,25...)");
-        double moneda= scanner.nextDouble();
-        System.out.println("Introduce el valor actual del dolar: (Ej. 19,5/20,4/25,2...");
-        double dolar= scanner.nextDouble();
+        System.out.println("Introduce la cantidad de un producto en especifico que desea comprar:");
+        int cantidad= scanner.nextInt();
+
+        System.out.println("Introduce el precio unitario del producto: (Ej. 19,4/10,25/25,0...)");
+        double valor= scanner.nextDouble();
+
+        System.out.println("¿Cual es el nombre de la empresa en la que trabaja?");
+        String nombre = scanner.next();
+
+        System.out.println("¿Es usted el jefe? (Y/N)");
+        String jefe = scanner.next();
+
         // Envia los datos recogidos
-        double datos = funcion1(moneda,dolar);
-        System.out.println("$" + moneda + " pesos mexicanos, equivalen a $" + datos + " dolares.");
+        double datos1 = subtotal(cantidad,valor);
+        double datos2 = totalidad(datos1);
+        String datos3 = totalidad(nombre,jefe);
+
+        // Textos
+        System.out.println("------ Ticket ------");
+        System.out.println("La cantidad de " + cantidad + " productos, por el valor unitario de $" + valor + " pesos, da un subtotal de $" + datos1 + " pesos.");
+        System.out.println("El valor del IVA para el subtotal es de $" + datos2);
+        double total = datos1 + datos2;
+        System.out.println("El total comprado es de $" + total);
+        System.out.println("La" + datos3 + ", gasto dicha cantidad en la compra de dichos productos.");
+        System.out.println("--------------------");
+
     }
 
-    // Primera Funcion (Recibe los resultados y envia una respuesta)
-    public static double funcion1(double x, double y) {
-        double resultado = x * y;
-        return resultado;
-    }
+        // Primera Funcion (Recibe los resultados y envia el subtotal)
+        public static double subtotal(int x, double y) {
+            double resultado = x * y;
+            return resultado;
+        }
 
-    // Segunda Funcion (Recibe un resultado pero no envia respuesta)
-    public static void funcion2(int x) {
-        System.out.println("Me mandaste los pesos pero no el valor del dolar, no puedo enviar nada...");
-    }
+        // Segunda Funcion (Recibe un resultado subtotal y devuelve el valor IVA)
+        public static double totalidad(double x) {
+            double resultado = x * .16;
+            return resultado;
+        }
 
-    // Tercera Funcion (No recibe resultados pero envia una respuesta)
-    public static boolean funcion3() {
-        return true;
-    }
+        // Devuelve Cargo de Compra (Recibe datos de empresa y el jefe para devolver el cargo de compra)
+        public static String totalidad(String x,String y) {
+            String resultado;
+            if (y.equalsIgnoreCase("Y")) {
+                resultado = (" empresa " + x + " a cargo de usted");
+            } else {
+                resultado = (" empresa " + x + " a cargo de quien corresponda");
+            }
+            return resultado;
+        }
 
-    // Cuarta Funcion (No recibe y ni envia resultados)
-    public static void funcion4() {
-        //No he recibido nada y no tengo nada que enviar.
-    }
+        //Nada de nada
+        public static void nada() {
+            // El programa ya fue ejecutado con exito!
+        }
 }
